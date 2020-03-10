@@ -16,3 +16,17 @@ jobs:
         args: --severity-threshold=high
         # If you want to monitor a project after workflow runs:
         # command: monitor
+    
+  create_issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: create issue from file
+        uses: peter-evans/create-issue-from-file@v2.1.0
+        with:
+          token: ${{ secrets.GITHUB }}
+          title: An example issue
+          content-filepath: /results/results.md
+          labels: report
+
+        
+      
