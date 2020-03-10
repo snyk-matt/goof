@@ -25,7 +25,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB }}
           title: An example issue
-          content-filepath: /results/results.md
+          content-filepath: ./results.md
           labels: report
 
         
