@@ -4,29 +4,24 @@ on:
     branches:
       - master
 jobs:
-#  security:
-   # runs-on: ubuntu-latest
-   # steps:
-   # - uses: actions/checkout@master
-   # - name: Run Snyk to check for vulnerabilities
-    #  uses: snyk/actions/node@master
-     # env:
-       # SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-   #   with:
-        #args: --severity-threshold=high
-        # If you want to monitor a project after workflow runs:
-        # command: monitor
-    
-  create_issue:
+  security:
     runs-on: ubuntu-latest
     steps:
-      - name: create issue from file
-        uses: peter-evans/create-issue-from-file@v2.1.0
-        with:
-          token: ${{ secrets.GITHUB }}
-          title: An example issue
-          content-filepath: ./results.md
-          labels: report
-
-        
+    - uses: actions/checkout@master
+      id: snyk_step_id
+    - name: Run Snyk to check for vulnerabilities
+      uses: snyk/actions/node@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        args: --summary
+        # If you want to monitor a project after workflow runs:
+        # command: monitor
       
+    - name: Create and issue
+      if: failure()
+      uses: maxkomarychev/oction-create-issue@v0.7.1
+      with:
+        token: ${{ secrets.GITHUB }}
+        title: a new test issue
+        body: here is the body of the issue
