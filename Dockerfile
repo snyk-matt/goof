@@ -1,4 +1,4 @@
-FROM node:6-stretch
+FROM node:10.4.0-jessie
 
 RUN mkdir /usr/src/goof
 RUN mkdir /tmp/extracted_files
@@ -10,3 +10,5 @@ RUN npm install
 EXPOSE 3001
 EXPOSE 9229
 ENTRYPOINT ["npm", "start"]
+
+RUN /bin/sh -c apt -y install imagemagick
