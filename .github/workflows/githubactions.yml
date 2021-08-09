@@ -9,4 +9,5 @@ jobs:
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      - name: Snyk Code Test
         run: snyk code test
